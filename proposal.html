@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Special Message for Ishika 💕✨</title>
+
+    <!-- Cute Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        body { 
+            font-family: 'Poppins', sans-serif;
+            text-align: center; 
+            padding: 50px; 
+            background: linear-gradient(135deg, #a1c4fd, #c2e9fb);
+            color: #333; 
+            overflow: hidden;
+            margin: 0;
+            height: 100vh;
+        }
+
+        /* Envelope Screen */
+        #envelopeScreen { 
+            position: fixed; 
+            top: 0; left: 0; 
+            width: 100%; height: 100%; 
+            background: linear-gradient(135deg, #a1c4fd, #c2e9fb); 
+            z-index: 100; 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: center; 
+            align-items: center; 
+        }
+
+        .envelope { 
+            font-size: 8em; 
+            margin-bottom: 20px; 
+            animation: pulse 2s infinite; 
+        }
+
+        .open-btn { 
+            padding: 20px 40px; 
+            font-size: 1.5em; 
+            background: #ff69b4; 
+            color: white; 
+            border: none; 
+            border-radius: 50px; 
+            cursor: pointer; 
+            font-family: 'Pacifico', cursive;
+            box-shadow: 0 10px 30px rgba(255,105,180,0.4); 
+        }
+
+        @keyframes pulse { 
+            0%, 100% { transform: scale(1); } 
+            50% { transform: scale(1.05); } 
+        }
+
+        #mainContent { display: none; }
+
+        h1, h2 {
+            font-family: 'Pacifico', cursive;
+            font-size: 3.2em;
+            color: #1e3a8a;
+        }
+
+        #proposalLetter {
+            max-width: 620px;
+            margin: 0 auto 40px;
+            font-size: 1.25em;
+            line-height: 1.8;
+            background: white;
+            padding: 30px;
+            border-radius: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        button {
+            padding: 15px 35px;
+            font-size: 1.3em;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            margin: 10px;
+            font-family: 'Pacifico', cursive;
+        }
+
+        #yes { background: #4caf50; color: white; }
+        #no  { background: #f44336; color: white; }
+
+        /* Final Message */
+        #finalMessage {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Pacifico', cursive;
+            font-size: 3.3em;
+            color: #ff69b4;
+            text-shadow: 4px 4px 8px rgba(0,0,0,0.9);
+            animation: heartbeat 1.5s infinite;
+            line-height: 1.4;
+            z-index: 1003;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-50%, -50%) scale(1.15); }
+        }
+
+        /* Hearts */
+        .heart {
+            position: fixed;
+            pointer-events: none;
+            z-index: 20;
+            animation: float 6s linear infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+        }
+
+        /* Fireworks */
+        .firework {
+            position: fixed;
+            pointer-events: none;
+            z-index: 1000;
+            border-radius: 50%;
+            box-shadow: 0 0 30px currentColor, 0 0 60px currentColor;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- Envelope -->
+<div id="envelopeScreen">
+    <div class="envelope">💌</div>
+    <h2>Special Message for Ishika 💖✨</h2>
+    <button class="open-btn" onclick="openLetter()">Open Letter 📩💗</button>
+</div>
+
+<div id="hearts-container"></div>
+
+<!-- Main Content -->
+<div id="mainContent">
+    <h1>Dear Ishika 💕🌸</h1>
+    <div id="proposalLetter">
+        <p>Somehow, you became my favorite thought 💭💖, my happiest distraction 😄✨, and my calm place 🫶🌷.</p>
+        <p>Time feels better ⏳💫 when you’re around, and smiles come naturally 😊💞.</p>
+        <p>I’d really love it if we could spend more of our time together 👫💖 and see what grows from this 🌱✨.</p>
+    </div>
+    <button id="yes" onclick="yesClick()">Yes ❤️🥰</button>
+    <button id="no" onclick="noClick()">No 😢🙈</button>
+</div>
+
+<!-- Final Screen -->
+<div id="finalMessage">
+    Thank Youuuuuuuuuu 💖🥹<br>
+    sooooooooooooo muchhhhhhhhhhh 🫶✨<br>
+    cant wait to spend time together 🥰🌸
+</div>
+
+<script>
+    const noResponses = [
+        'Arre sach mein? 🥺💕','Phir se soch lo na 😘',
+        'Yes bol do please 🥰🌷','Pretty pleaseeee 🌸💖',
+        'Dil se socho 💞✨','Ek chance de do 🫶🥹'
+    ];
+
+    let currentIndex = 0;
+    let heartInterval;
+    let fireworksInterval;
+
+    function openLetter() {
+        document.getElementById('envelopeScreen').style.display = 'none';
+        document.getElementById('mainContent').style.display = 'block';
+        startHearts();
+    }
+
+    function createHeart(size = 25) {
+        const heart = document.createElement('div');
+        heart.className = 'heart';
+        heart.innerHTML = ['💖','💕','💗','💝','💞','🌸'][Math.floor(Math.random() * 6)];
+        heart.style.fontSize = size + 'px';
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.animationDuration = (Math.random() * 3 + 4) + 's';
+        document.getElementById('hearts-container').appendChild(heart);
+        setTimeout(() => heart.remove(), 7000);
+    }
+
+    function startHearts() {
+        heartInterval = setInterval(() => createHeart(25), 400);
+    }
+
+    function yesClick() {
+        document.getElementById('mainContent').style.display = 'none';
+        document.body.style.background = '#000';
+
+        clearInterval(heartInterval);
+        heartInterval = setInterval(() => createHeart(55), 100);
+        fireworksInterval = setInterval(megaFireworksBurst, 800);
+
+        setTimeout(() => {
+            document.getElementById('finalMessage').style.display = 'block';
+        }, 2000);
+    }
+
+    function noClick() {
+        const btn = document.getElementById('no');
+        btn.style.position = 'fixed';
+        btn.style.left = Math.random() * 85 + 'vw';
+        btn.style.top = Math.random() * 75 + 'vh';
+        btn.innerHTML = noResponses[currentIndex++ % noResponses.length];
+    }
+
+    function megaFireworksBurst() {
+        const colors = ['#ff6b6b','#ff9ff3','#ffd23f','#4ecdc4','#ff69b4'];
+        const x = Math.random() * 100;
+        const y = Math.random() * 70;
+
+        for (let i = 0; i < 35; i++) {
+            const fw = document.createElement('div');
+            fw.className = 'firework';
+            fw.style.left = x + 'vw';
+            fw.style.top = y + 'vh';
+            fw.style.width = '18px';
+            fw.style.height = '18px';
+            fw.style.background = colors[Math.floor(Math.random() * colors.length)];
+            document.body.appendChild(fw);
+
+            const angle = (Math.PI * 2 * i) / 35;
+            const dist = 300 + Math.random() * 200;
+
+            fw.animate([
+                { transform: 'translate(0,0)', opacity: 1 },
+                { transform: `translate(${Math.cos(angle)*dist}px, ${Math.sin(angle)*dist}px)`, opacity: 0 }
+            ], { duration: 2000 }).onfinish = () => fw.remove();
+        }
+    }
+</script>
+
+</body>
+</html>
